@@ -26,6 +26,8 @@ function App() {
     amount: "",
     loanPeriod: "",
     loanIndex: "",
+    lockTime: "",
+    lendingIndex: "",
   });
   const [feedback, setFeedback] = useState("");
   const [lendingHistory, setLendingHistory] = useState([]);
@@ -76,13 +78,32 @@ function App() {
 
   // Handle form input changes
   const handleInputChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name == "amount") {
+      if (value === "" || /^(\d+(\.\d{0,18})?|0\.\d{0,18})$/.test(value)) {
+        setForm({ ...form, [name]: value });
+      }
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   // Lender Functions
   const deposit = async () => {
+    const amount = parseFloat(form.amount);
+
     if (!form.amount || !form.lockTime)
       return setFeedback("Please fill in all fields.");
+
+    if (isNaN(amount) || amount <= 0) {
+      alert("The value should be greater than 0.");
+      return;
+    }
+
+    const formattedAmount = form.amount
+      ? (parseFloat(form.amount) * 10 ** 18).toString()
+      : null;
 
     await toast.promise(
       (async () => {
@@ -92,8 +113,9 @@ function App() {
           functionName: "deposit",
           address: LENDINGANDBORROWING,
           args: [form.lockTime],
-          value: form.amount, // Sending native XFI tokens
+          value: formattedAmount, // Sending native XFI tokens
         });
+        console.log(formattedAmount);
       })(),
       {
         loading: "Processing your deposit...",
@@ -165,6 +187,11 @@ function App() {
 
     if (!amount || isNaN(amount) || Number(amount) <= 0) {
       return setFeedback("Please enter a valid amount.");
+    }
+
+    if (isNaN(amount) || amount <= 0) {
+      alert("The value should be greater than 0.");
+      return;
     }
 
     if (!loanPeriod) {
@@ -355,7 +382,12 @@ function App() {
           <h2>Lender Section</h2>
           <div>
             <label>Amount (in XFI):</label>
-            <input type="number" name="amount" onChange={handleInputChange} />
+            <input
+              type="text"
+              name="amount"
+              value={form.amount || ""}
+              onChange={handleInputChange}
+            />
           </div>
           <div>
             <label>Lock Time:</label>
