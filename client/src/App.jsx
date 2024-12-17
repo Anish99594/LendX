@@ -398,8 +398,10 @@ function App() {
               <option value="15552000">180 Days</option>
             </select>
           </div>
-          <button onClick={deposit}>Deposit</button>
-          <hr />
+          <button onClick={deposit} style={{ marginBottom: "10px" }}>
+            Deposit
+          </button>
+
           <div>
             <label>Lending Index:</label>
             <input
@@ -408,8 +410,10 @@ function App() {
               onChange={handleInputChange}
             />
           </div>
-          <button onClick={withdraw}>Withdraw</button>
-          <hr />
+          <button onClick={withdraw} style={{ marginBottom: "5px" }}>
+            Withdraw
+          </button>
+
           <button>Lending History</button>
           {lendingHistory.length > 0 ? (
             <table>
@@ -461,8 +465,10 @@ function App() {
               <option value="15552000">180 Days</option>
             </select>
           </div>
-          <button onClick={borrow}>Request Loan</button>
-          <hr />
+          <button onClick={borrow} style={{ marginBottom: "10px" }}>
+            Request Loan
+          </button>
+
           <div>
             <label>Loan Index:</label>
             <input
@@ -471,15 +477,20 @@ function App() {
               onChange={handleInputChange}
             />
           </div>
-          <button onClick={repayLoan}>Repay Loan</button>
-          <hr />
+          <button onClick={repayLoan} style={{ marginBottom: "5px" }}>
+            Repay Loan
+          </button>
+
           <div>
-            <button onClick={fetchRepaymentAmount}>
+            <button
+              onClick={fetchRepaymentAmount}
+              style={{ marginBottom: "5px" }}
+            >
               Calculate Repayment Amount
             </button>
             {repaymentAmount && <p>Repayment Amount: {repaymentAmount} XFI</p>}
           </div>
-          <hr />
+
           <button>Fetch Loan History</button>
           {loanHistory.length > 0 ? (
             <table>
