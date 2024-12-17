@@ -1,5 +1,11 @@
 # LendX Protocol
 
+## Project Front Page
+
+Here is a preview of the project's front page:
+
+![Dashboard](client/src/assets/LendXfrontpage.png)
+
 ## Overview
 
 The **LendX Protocol** contract is a decentralized lending and borrowing system that allows borrowers to request loans without collateral, while lenders provide funds and earn rewards based on their deposits. The system features loan repayment, late fees, insurance, and mechanisms to manage defaulters, including blacklisting.
